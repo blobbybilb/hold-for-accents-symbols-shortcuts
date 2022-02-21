@@ -2,9 +2,13 @@ import keyboard
 from time import sleep
 import json
 import tkinter
+import faulthandler
+
+faulthandler.enable()
 
 
 VALID_KEYS = "1234567890-=qwertyuiop[]asdfghjkl;'zxcvbnm,./\\"
+KEYS_OPTION_SELECT = "1234567890-="
 
 with open("keys_config.json") as config_file:
     CONFIG = json.load(config_file)
@@ -33,4 +37,4 @@ def run_on_press(key_info: keyboard.KeyboardEvent):
 
 keyboard.on_press(run_on_press)
 
-sleep(10000000)
+sleep(10)  # why is this causing segmentation fault?
