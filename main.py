@@ -1,38 +1,36 @@
 import keyboard
-import time
+from time import sleep
 import json
+import tkinter
+
 
 VALID_KEYS = "1234567890-=qwertyuiop[]asdfghjkl;'zxcvbnm,./\\"
-print(set(VALID_KEYS))
 
 with open("keys_config.json") as config_file:
     CONFIG = json.load(config_file)
+    key_delay = round(CONFIG["delay"] / 0.05)
+    keys = CONFIG["keys"]
 
 
 def run_on_press(key_info: keyboard.KeyboardEvent):
     if key_info.name not in VALID_KEYS:
         return
-    for _ in range(5):
-        time.sleep(0.1)
+    for _ in range(key_delay):
+        sleep(0.05)
         if not keyboard.is_pressed(key_info.name):
-            print("nope")
             return
-    print(key_info.name)
-    print("held for half a second")
+    keyboard.press_and_release("backspace")
+    input_win = tkinter.Tk()
+    input_win.overrideredirect(1)
+    input_win.geometry("500x50")
+    input_win.geometry("-50-50")
+
+    for each_item in keys[key_info.name]:
+        tkinter.Label(input_win, text=each_item, width=len(each_item)).pack()
+
+    input_win.mainloop()
 
 
 keyboard.on_press(run_on_press)
 
-
-# def on_press(key: keyboard.KeyCode):
-#     try:
-#         if key.char not in VALID_KEYS:
-#             return
-#     except AttributeError:
-#         return
-#
-#     print(key.char)
-#
-#
-# with keyboard.Listener(on_press=on_press) as listener:
-#     listener.join()
+sleep(10000000)
