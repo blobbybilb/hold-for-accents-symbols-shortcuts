@@ -2,7 +2,6 @@ import keyboard
 from time import sleep
 import json
 import tkinter
-import threading
 
 
 VALID_KEYS = "qwertyuiop[]asdfghjkl;'zxcvbnm,./"
@@ -14,14 +13,20 @@ with open("keys_config.json", encoding='utf-8') as config_file:
     keys = CONFIG["keys"]
 
 
-def other_run_on_press(key_info: keyboard.KeyboardEvent):
-    if key_info.name in KEYS_OPTION_SELECT:
-        keyboard.write(keys[key_info.name][int(key_info.name)+])
-    elif key_info.name == 'esc':
-        input_win.destroy()
+def check_for_press(text_options_list, the_win):
+    while True:
+        for i in KEYS_OPTION_SELECT:
+            if keyboard.is_pressed(i):
+                if i == '0':
+                    keyboard.write(text_options_list[9])
+                elif i == '-':
+                    keyboard.write(text_options_list[10])
+                elif i == '=':
+                    keyboard.write(text_options_list[11])
+                else:
+                    keyboard.write(text_options_list[int(i)-1])
+                the_win.destroy()
 
-def checker():
-    keyboard.on_press(other_run_on_press)
 
 
 def run_on_press(key_info: keyboard.KeyboardEvent):
@@ -40,13 +45,12 @@ def run_on_press(key_info: keyboard.KeyboardEvent):
 
     items_for_this = keys[key_info.name]
     for each_item in items_for_this:
-        print(each_item)
         tkinter.Label(input_win, text=each_item, width=5).pack(side="left")
 
     input_win.attributes("-topmost", True)
-
-    checker_thread = threading.Thread(target=checker)
-    input_win.mainloop()
+    input_win.update()
+    print('hello')
+    input_win.after(10, check_for_press, items_for_this, input_win)
 
 
 keyboard.on_press(run_on_press)
