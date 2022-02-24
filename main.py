@@ -35,24 +35,28 @@ def run_on_press(key_info: keyboard.KeyboardEvent):
     while True:
         for i in KEYS_OPTION_SELECT:
             if keyboard.is_pressed(i):
-                if i == '0':
-                    char_select = (items_for_this[9])
-                elif i == '-':
-                    char_select = (items_for_this[10])
-                elif i == '=':
-                    char_select = (items_for_this[11])
-                else:
-                    try:
+                try:
+                    if i == '0':
+                        char_select = (items_for_this[9])
+                    elif i == '-':
+                        char_select = (items_for_this[10])
+                    elif i == '=':
+                        char_select = (items_for_this[11])
+                    else:
                         char_select = (items_for_this[int(i) - 1])
-                    except IndexError:
-                        input_win.destroy()
-                        keyboard.press_and_release('backspace')
-                        return
+                except IndexError:
+                    input_win.destroy()
+                    keyboard.press_and_release('backspace')
+                    return
                 input_win.destroy()
                 keyboard.press_and_release('backspace')
-                keyboard.write(char_select)
+                if keyboard.is_pressed('shift'):
+                    keyboard.write(char_select.upper())
+                else:
+                    keyboard.write(char_select)
                 return
 
 
 keyboard.on_press(run_on_press)
+print('Running: try pressing and holding a key!')
 keyboard.wait()
