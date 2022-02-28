@@ -2,6 +2,9 @@ import keyboard
 from time import sleep
 import json
 import tkinter
+from pynput.keyboard import Key, Controller
+
+pynput_controller = Controller()
 
 VALID_KEYS = "qwertyuiop[]asdfghjkl;'zxcvbnm,./"
 KEYS_OPTION_SELECT = "1234567890-="
@@ -53,7 +56,7 @@ def run_on_press(key_info: keyboard.KeyboardEvent):
                 if keyboard.is_pressed('shift'):
                     keyboard.write(char_select.upper())
                 else:
-                    keyboard.write(char_select)
+                    pynput_controller.type(char_select)
                 return
 
 
