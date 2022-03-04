@@ -3,6 +3,8 @@ Because repeating the same key over and over is usually useless. Use useful acce
 
 A simple app to type accented characters (like à), symbols (like ‰), and configurable text shortcuts (like email, phone number, etc.). Just press and hold a key while the app is running.
 
+[And something like this pops up on the bottom-right corner of your screen](https://user-images.githubusercontent.com/58201828/156706481-2399e8ac-29f5-49a5-91fd-1ef78780cc5b.png)
+Then press the corresponding number key on your keyboard to insert!
 
 ---
 ### Download
