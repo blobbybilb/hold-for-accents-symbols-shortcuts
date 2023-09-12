@@ -1,3 +1,7 @@
+Archived... V1 is done; it works on windows. This is an super-tiny, old-ish project so it may not work well. It should mostly work on X on linux, but it probably won't work on wayland.
+
+---
+
 # hold for accents, symbols, and shortcuts
 Because repeating the same key over and over is usually useless. Use useful accents, symbols, or text shortcuts instead.
 
